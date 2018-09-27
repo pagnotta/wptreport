@@ -486,15 +486,15 @@ var createAllTable = function (tableName) {
         if (test.subtests.length === 0) { // exclude tests with no subtests from report
             continue;
         };
-        var hasFailedSubtests = false;
+        var allTestsPassed = true;
         for (let k = 0; k < test.subtests.length; k++) {
             const subtest = test.subtests[k];
-            if (subtest.byUA[out.ua] === 'FAIL') {
-                hasFailedSubtests = true;
+            if (subtest.byUA[out.ua] !== 'PASS') {
+                allTestsPassed = false;
                 break;
             }
         }
-        if (hasFailedSubtests) {
+        if (!allTestsPassed) {
             continue;
         }
         numberOfTestFiles++;
