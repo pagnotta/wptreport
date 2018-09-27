@@ -486,6 +486,17 @@ var createAllTable = function (tableName) {
         if (test.subtests.length === 0) { // exclude tests with no subtests from report
             continue;
         };
+        var hasFailedSubtests = false;
+        for (let k = 0; k < test.subtests.length; k++) {
+            const subtest = test.subtests[k];
+            if (subtest.byUA[out.ua] === 'FAIL') {
+                hasFailedSubtests = true;
+                break;
+            }
+        }
+        if (hasFailedSubtests) {
+            continue;
+        }
         numberOfTestFiles++;
         table += "<tr class='test' id='test-file-" + test.testNum + "'><td><a href='https://github.com/cta-wave/WMAS2017/blob/wmas2017-tests" + esc(test.name) + "' target='_blank'>" +
                  esc(test.name) + "</a></td>" + cells(test.status) + "</tr>\n";
